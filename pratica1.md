@@ -1,6 +1,5 @@
 ## Explorando o banco <br>
-*banco de dados disponível no e-aulas* <br>
-
+<br>
 Comandos da aula
 - browse/edit
 - describe
