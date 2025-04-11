@@ -41,7 +41,7 @@ Comandos da aula
 
 ### RStudio <br>
 1. vamos importar o banco .dta (formato stata) para o R
-2. será preciso instalar um pacote especifico (vc precisa instalar e chamar o pacote pro jogo, senão ele não vem)
+2. será preciso instalar um pacote especifico "haven" (vc precisa instalar e chamar o pacote pro jogo, senão ele não vem)
 3. vamos criar um trecho de código com os pacotes básicos necessários que vc **precisa** executar sempre que abrir o R (vai de copia e cola)
 
 ##### A maneira mais simples de instalar e chamar os pacotes
