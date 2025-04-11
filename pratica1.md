@@ -1,6 +1,7 @@
-## Explorando o banco <br>
-<br>
-Comandos da aula
+## Explorando o banco
+
+Comandos da aula:
+
 - browse/edit
 - describe
 - list
