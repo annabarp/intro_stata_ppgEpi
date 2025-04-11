@@ -1,14 +1,12 @@
 ---------------------------------------------------------------------------------------------------------------
-      name:  <unnamed>
-       log:  C:\Users\lauri\Documents\stata\novaprt1.log
-  log type:  text
+       log type:  text
  opened on:   9 Apr 2025, 18:59:27
 
-. use "C:\Users\lauri\Downloads\Aula 1 - banco (1).dta"
+. use "C:\Users\... data.dta"
 
 . describe
 
-Contains data from C:\Users\lauri\Downloads\Aula 1 - banco (1).dta
+Contains data from C:\Users\... data.dta
  Observations:            20                  
     Variables:            11                  24 Feb 2015 16:34
 ---------------------------------------------------------------------------------------------------------------
@@ -930,7 +928,7 @@ r(101);
 
 . log close
       name:  <unnamed>
-       log:  C:\Users\lauri\Documents\stata\novaprt1.log
+       log:  C:\Users\... data.log
   log type:  text
  closed on:   9 Apr 2025, 23:34:46
 ---------------------------------------------------------------------------------------------------------------
