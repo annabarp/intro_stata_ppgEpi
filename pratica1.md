@@ -31,12 +31,19 @@ Comandos da aula:
 
 - *count if*
 <br> vc delimita contar tal variavel SE tiver certo valor a observação, por exemplo:
-<br> "count if apesorn > 2000" (conta o numero de observações que o peso é maior que x)
+<br> *count if apesorn > 2000* (conta o numero de observações que o peso é maior que x)
 
-- *log* 
-  <br> log close; log on/off; log query; log using "nome_do_arquivo", append" <br>
-  fecha o log; pausa; diz se aberto ou não, se aberto mostra o caminho; reiniciar um log fechado.
-
+- *log*
+  
+  *log close* =  fecha o log
+  
+  *log on/off* = pausa
+  
+  *log query*= diz se aberto ou não, se aberto mostra o caminho
+  
+  *log using "nome_do_arquivo" append* =  reiniciar um log fechado
+  
+ 
 #### vc nao mexeu no banco, então não precisa salvar; o importante é garantir que vc salvou o log.
 
 ### RStudio <br>
