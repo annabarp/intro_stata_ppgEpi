@@ -1,17 +1,23 @@
-## titulo da aula
+## Recodificando variáveis
 
 Comandos da aula:
 
-- função1
-- função2
+- recode
+- egen
+- xtile
+- bysort
   
 ### Stata 
   1. abrir o log em formato .log
   2. abrir o banco de dados .dta
-  3. xx
      
- - *xx*
-<br> comentários
+ - *d,s*
+<br> te dá o numero de var e obs
+
+- *
+
+
+
 
 
 #### vc nao mexeu no banco, então não precisa salvar; o importante é garantir que vc salvou o log.
