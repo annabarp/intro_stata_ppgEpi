@@ -80,10 +80,34 @@ numericas
 texto
 - string (str1 str2 - depende da qtd de caracteres)<br>
 
-## RStudio
+Do file
 
+```
+edit
+rename(var1 var2 var3 var4 var5 var6 var7 var8 var9) (ficha nome sexo ocupacao idade peso estatura fuma depre)
+label var ficha "numero do questionario"
+label var nome "nome atribuído"
+label var sexo "sexo biológico"
+label var ocupacao "profissao"
+label var idade "em anos"
+label var estatura "em cm"
+label var peso "em kg"
+label var fuma "uso de tabaco"
+label var depre "diagnostico de depressao"
+label define sn 1 "sim" 0 "nao"
+label values fuma sn
+label values depre sn
+generate sexo_num = (sexo == "feminino")
+drop sexo
+rename sexo_num sexo
+encode ocupacao, generate(ocupacao_num) label(ocupacoes)
+drop ocupacao
+rename ocupacao_num ocupacao
+generate estatura_metros = estatura/100
+generate imc = peso/(estatura_metros)^2
+log close
 
-
+```
 
 
 
