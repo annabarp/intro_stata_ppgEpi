@@ -28,7 +28,7 @@ Comandos da aula:
   ex: *rename (varvelha1 varvelha2) (varnova1 varnova2)* talvez ao infinito
   
 ### label <br>
-- label variable "o que vc quiser" = coloca uma etiqueta na variavel
+- label variable "o que vc quiser" => coloca uma etiqueta na variavel
     
 - label define [nome da etiqueta] [valor real da obs] ["nome atribuido"]
   
