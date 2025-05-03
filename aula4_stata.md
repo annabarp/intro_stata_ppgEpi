@@ -81,7 +81,7 @@ replace epoclln = epoclln1 if epoclln ==.
 
 ** isso quer dizer "substitua edad por edad1 se edad for igual a missing"
 
-// q2f
+// q2f juntei um banco, vou querer saber as novas tabelas
 d,s
 
 tab epoc70 
