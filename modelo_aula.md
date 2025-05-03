@@ -1,58 +1,35 @@
-## titulo da aula
+## Aula 4 - Merge e append
 
 Comandos da aula:
 
-- função1
-- função2
+- merge
+- append
   
 ### Stata 
   1. abrir o log em formato .log
   2. abrir o banco de dados .dta
-  3. xx
+  3. abrir o Do file
      
- - *xx*
-<br> comentários
+### append
+juntar linhas (observações) ao banco de dados que está sendo utilizado
 
 
-#### vc nao mexeu no banco, então não precisa salvar; o importante é garantir que vc salvou o log.
+### merge
+juntar colunas ao banco
+banco "master" é o aberto
+banco "using" é o externo que tu quer trazer
 
-### RStudio <br>
-1. vamos importar o banco .dta (formato stata) para o R
-2. será preciso instalar um pacote especifico "haven" (vc precisa instalar e chamar o pacote pro jogo, senão ele não vem)
-3. vamos criar um trecho de código com os pacotes básicos necessários que vc **precisa** executar sempre que abrir o R (vai de copia e cola)
+2 modos principais:
+- One-to-one => indica que as variáveis são pareadas uma a uma (exemplo: banco dos 15 e 18 anos da coorte 1993)
+- One-to-many => indica que há várias observações no “using” que devem ser pareadas com uma informação da mãe (banco da coorte 1993 aos 22 anos, com o banco de filhos dos membros da coorte) (aqui cria um banco tipo long)
+- 1:1
+- 1: m
+- m: 1
+- m: m
 
-##### A maneira mais simples de instalar e chamar os pacotes
-```r 
-pacotes_aula1 <- c("tidyverse", "summarytools", "labelled", "haven")
-install.packages(pacotes_aula1)
-lapply(pacotes_aula1, library, character.only = TRUE)
-```
 
-#### Outra forma mais complexa, se vc puder só copiar e colar de um arquivo pronto
-```r
-required_packages <- c("tidyverse", "summarytools", "labelled", "haven") 
-new_packages <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
-if(length(new_packages)) install.packages(new_packages)
-lapply(required_packages, library, character.only = TRUE)
-```
-- lapply é uma função que aplica outra função numa lista ou vetor
-- string é um texto entre aspas = "tidyverse"
 
-#### Importando o banco .dta e fazendo virar DF
-```r
-banco_aula1 <- read_dta("C:/Users/lauri/Documents/stata/XXXXX")
-```
-#### Vamos iniciar a ...XXXX
-- *XXX()* ou *XXX()* [stata: XXXX]<br>
-  isso faz abcdfg...
-  
-```r
-XX Código XXX
-```
 
-#### vc nao mexeu no banco, entao precisa salvar só o script .R
-
-### FIM
 
   
 
