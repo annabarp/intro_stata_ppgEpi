@@ -77,11 +77,16 @@ tabulate [variavel], nol (nol esconde os rotulos)
 
 *bysort fx_etaria: tabulate sexo desfecho, chi col row*
 
+*tab dpoc2020, m* => - pode pedir para contar os missing na frequencia relativa
+*tab dpoc2020, nol => esconde os labels das variaveis
+
 
 ### *replace* 
-- substitui obs da a variável 
+- substitui obs da variável
+- "replace variavelquerecebe = variavelfonte if variavelquerecebe == for x valor"
 exemplo:
-replace [status] = "aprovado" if nota >= 7
+replace status = "aprovado" if nota >= 7
+replace edad = edad1 if edad == . => substitua edad por edad1 se edad for igual a .
 
 ### *destring* - variável string vira numérica (uma simples troca de categoria, que só funciona se as obs. já forem numericas)
 ### *tostring* - variavel numerica vira string
