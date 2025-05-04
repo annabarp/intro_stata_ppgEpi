@@ -73,24 +73,25 @@ sum imc11,d
 
 *q5
 recode imc11 (min/24.9999 = 0 "normal") (25/29.9999 = 1 "sobrepeso") (30/max = 2 "obesidade"), gen(imc_cat)
+
 recode imc_cat (0 = 0 "normal") (1/2 = 1 "sobrepeso/obesidade"), gen(imc112)
 
 tab imc_cat
-tab imc112 
+tab imc112 //deu certo \o/
 
 bysort sexo: tab imc112
 bysort vdgame: ta imc112
 
 *q6
 
-gen idade_meses = ha113 - datnasc
+gen idade_meses = (ha113 - datnasc)/30.43
 sum idade_meses,d
 codebook idade_meses
 sort idade_meses
 list idade_meses if idade_meses < 0
 drop if _n == 1
 
-//deixar uma nota
+//deixando uma nota
 notes idade_meses: "idade do adolescente em meses no momento da entrevista. Uma (1) observação foi dropada devido a possuir uma data de nascimento anterior a 1993"
 
 *q7
@@ -122,6 +123,12 @@ notes: kplanfi "planejada?" kdnfi "data de nascimento" kpnfi "peso ao nascer" ks
 
 reshape wide kplanfi kdnfi kpnfi ksexfi, i(numero) j(qtfil)
 
+// outros dois jeitos para se fazer o reshape (FW)
+
+// reshape wide kplanfi@ kdnfi@ ksexfi@ kpnfi@, i(numero) j(qtfil) // aqui o @ força a manter a ordem original
+
+// reshape wide k*, i(numero) j(qtfil) //aqui o asterisco vai espalhar todas as variaveis começadas em k
+
 label variable kplanfi1 "planejada?" 
 label variable kdnfi1   "data de nascimento" 
 label variable kpnfi1   "peso ao nascer" 
@@ -133,12 +140,21 @@ tab kplanfi1
 ta ksexfi1
  
 format kdnfi1 %d // transformar a variavel data de nascimento de dias de 1960 para uma data legivel
+
 generate data_futuro = mdy(04, 07, 2015) //criando uma variavel de uma data especifica
 format data_futuro %d
 
 gen idade_no_futuro = data_futuro - kdnfi1 // qual a idade no futuro em uma data específica?
 
 gen idade_futuro_anos = idade_no_futuro / 365.25 // (de dias para anos)
+
+// de dias para meses seria /30.44
+
+// se a data fosse uma string 15/07/2023, como faz?
+
+// *gen data_nasc = date(kdnfi1, "DMY")* // Supondo formato Dia/Mês/Ano
+
+format data_nasc %d // apresenta em data normal
 
 ```
 
