@@ -1,4 +1,6 @@
-## Explorando o banco
+## Abre o log / Abre e salva o do / salva o doc no teu nome
+
+### Explorando o banco
 
 Comandos da aula:
 
@@ -43,9 +45,6 @@ Comandos da aula:
   
   *log using "nome_do_arquivo" append* =  reiniciar um log fechado
   
- 
-#### vc nao mexeu no banco, então não precisa salvar; o importante é garantir que vc salvou o log. 
-
 
 
 
