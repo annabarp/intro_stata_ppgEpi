@@ -80,7 +80,7 @@ Comandos da aula:
     
   label define [nome da etiqueta] [valor real da obs] ["nome atribuido"]
   
-  exemplo: *label define sim_ou_nao 1 "sim" 0 "nao"*
+  exemplo: *label define sn 1 "sim" 0 "nao"*
     
   label values [variavel a atribuir uma etiqueta] [nome da etiqueta] 
   
@@ -120,7 +120,7 @@ cria uma nova variavel, pode ser a partir de outra
   
  *sum imc, detail*
 
-#### Obs:
+- Obs:
 Tipos de variaveis:
     
 **numericas**
@@ -251,7 +251,9 @@ replace status = "aprovado" if nota >= 7
 replace edad = edad1 if edad == . => substitua edad por edad1 se edad for igual a .
 
 - **destring** - variável string vira numérica (uma simples troca de categoria, que só funciona se as obs. já forem numericas)
+  *destring variavelx, replace*
 - **tostring** - variavel numerica vira string
+   *tostring variavelx, replace
 
 ### Do file
 
@@ -612,11 +614,6 @@ reshape long estimativa, i(country) j(coverage)
 Comandos novos da aula:
 
 - global\cd
-  
-#### Stata 
-  1. abrir o log em formato .log
-  2. abrir o banco de dados .dta
-
      
  - **global**
 criar um atalho de texto para uma pasta, apenas isso, ao inves de digitar todo o caminho para uma pasta toda vez que for usar ela
@@ -766,6 +763,113 @@ gen idade_futuro_anos = idade_no_futuro / 365.25 // (de dias para anos)
 format data_nasc %d // apresenta em data normal
 
 ```
+
+## Revisão exercícios extras
+
+do-file
+```
+*q2
+
+lab var haz "altura para idade em z-score"
+lab var baz "imc por idade em z-score"
+
+*q3
+
+hist haz, norm
+hist baz, norm
+
+sum haz, d
+sum baz, d
+
+recode haz (min/1.99 = 1 "com deficit") (2/max = 0 "sem deficit"), gen(haz_binaria)
+lab var haz_binaria "presença de deficit de estatura para idade"
+
+recode baz (min/0.999 = 0 "peso adequado para idade") (1/max = 1 "sobrepeso/obesidade"), gen(baz_binaria)
+lab var baz_binaria "presença de sobrepeso/obesidade"
+
+*q4
+recode agemo (min/23.999 = 0 "<24 meses") (24/max = 1 ">= 24 meses"), gen(agemo_binaria)
+lab var agemo_binaria "idade em fx etaria"
+
+bysort sex: tab haz_binaria
+bysort sex: tab baz_binaria
+
+bysort agemo_binaria: tab haz_binaria
+bysort agemo_binaria: tab baz_binaria
+
+*q5
+db merge
+merge m:1 idhh using "C:\Users\lauri\Documents\stata\revisao exercicios extras\banco2.dta"
+
+usei m:1 pq é pra juntar um master de pessoas com o secundario de domicilios, sao mais de 1 pessoa por domicilio com certeza.
+
+
+*q6
+*A
+xtile wic_qtl2 = wic, nq(4)
+ta wic_qtl2
+
+lab var wic_qtl2 "quartis de wic"
+
+label define qtsrotulo 1 "1º quartil" 2 "2º quartil" 3 "3º quartil" 4 "4º quartil"
+la val wic_qtl2 qtsrotulo
+
+*B
+
+gen source_water =.
+
+*pipedw = encanada
+*impwater = melhorada
+
+replace source_water = 1 if pipedw == 0 & impwater == 0 //nada
+
+replace source_water = 2 if pipedw == 0 & impwater == 1 // encanada nao, melhorada sim
+
+replace source_water = 3 if pipedw == 1 & impwater == 0 // encanada sim, melhorada nao
+
+replace source_water = 4 if pipedw == 1 & impwater == 1 // encanada sim, melhorada sim
+
+label define fontedeagua 1 "sem cano sem melhorada" 2 "sem cano, com melhorada" 3" com cano, sem melhorada" 4 "com cano, com melhorada"
+
+lab val source_water fontedeagua
+lab var source_water "tipo de fonte de agua"
+
+*C
+bysort wic_qtl2: tab haz_binaria
+bysort wic_qtl2: tab baz_binaria
+
+bysort source_water: tab haz_binaria
+bysort source_water: tab baz_binaria
+
+*D
+gen water_binaria =.
+
+replace water_binaria = 0 if source_water == 1
+
+replace water_binaria = 1 if inlist(source_water, 2, 3, 4) // ou if source_water >1
+
+lab define water_binarialabel 0 "nenhuma fonte" 1 "qualquer fonte"
+lab val water_binaria water_binarialabel
+
+ta water_binaria
+
+bysort wic_qtl2: tab water_binaria
+
+*q8
+// esse é um modo usando um collapse antes para calcular a meia por pais
+collapse (mean) r, by(country indic)
+
+reshape wide r, i(country) j(indic) string
+
+corr rimpwater rpipedw
+
+// sem usar collapse - da certo também, mas tu fica com valores para dois anos diferentes
+
+reshape wide r, i(country year) j(indic) string
+
+// as correlações sao diferentes, uma correlaçao maior quando eu faço as medias. 
+
+``` 
 
 
      
