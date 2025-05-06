@@ -11,7 +11,7 @@ Comandos da aula:
 - lookfor
 - display
   
-### Stata 
+#### Stata 
   1. abrir o log em formato .log
   2. abrir o banco de dados .dta
   3. exploração do banco:
@@ -56,37 +56,37 @@ Comandos da aula:
 - tabulate
 - summarize
   
-## Stata 
+#### Stata 
   1. abrir o log em formato .log
   2. no caso desse exercicio, digite o banco manualmente
   3. o stata tem apelidos pra suas variaveis, um fofo
   4. se algo estiver entre [] é pra substituir o conjunto todo por algo
   5. se estiver entre () mantem os parenteses e substitui o conteúdo dentro
 
-### edit/browse
+- **edit/browse**
    edit(ou ed apenas) vc abre a planilha pra editar <br>
     -- ao criar variaveis direto no edit, o programa nomeia elas automaticamente como [var1..] <br>
     
   browse(ou br apenas) vc abre a planilha só para observar 0.o <br>
     
-### rename 
+- **rename** 
 
   vc pode renomear varias juntas, sempre só com espaço, sem virgulas
   
   ex: *rename (varvelha1 varvelha2) (varnova1 varnova2)* talvez ao infinito
   
-### label <br>
-- label variable "o que vc quiser" => coloca uma etiqueta na variavel
+- **label** <br>
+  label variable "o que vc quiser" => coloca uma etiqueta na variavel
     
-- label define [nome da etiqueta] [valor real da obs] ["nome atribuido"]
+  label define [nome da etiqueta] [valor real da obs] ["nome atribuido"]
   
   exemplo: *label define sim_ou_nao 1 "sim" 0 "nao"*
     
- - label values [variavel a atribuir uma etiqueta] [nome da etiqueta] 
+  label values [variavel a atribuir uma etiqueta] [nome da etiqueta] 
   
   exemplo: *label values fuma sim_ou_nao*
      
-### generate
+- **generate**
 
 cria uma nova variavel, pode ser a partir de outra
   - para transformar uma variavel que é string em numerica;
@@ -100,7 +100,7 @@ cria uma nova variavel, pode ser a partir de outra
   ou
  *generate imc = peso/(estatura_metros)^2*
   
-### encode
+- **encode**
 
 - transformar uma serie de categorias dentro de uma variavel em numeros, atribuindo a ela labels 
 
@@ -110,22 +110,22 @@ cria uma nova variavel, pode ser a partir de outra
 
 *foram 2 jeitos diferentes para string -> numerico*
 
-### tab
- -  tabela com frequencias de uma variavel CATEGORICA
+- **tab**
+   tabela com frequencias de uma variavel CATEGORICA
 
-### summarize (ou sum)
- - estatistica descritiva basica de uma variavel numerica
+- **summarize (ou sum)**
+  estatistica descritiva basica de uma variavel numerica
   
  *sum imc, detail*
 
 #### Obs:
 Tipos de variaveis:
     
-numericas
+**numericas**
 - discreta (byte, int, long)
 - contínua (float, double)
 
-texto
+**texto**
 - string (str1 str2 - depende da qtd de caracteres)<br>
 
 Do file
@@ -166,15 +166,15 @@ Comandos da aula:
 - xtile
 - bysort
   
-## Stata 
+#### Stata 
   1. abrir o log em formato .log
   2. abrir o do file
   3. abrir o banco de dados .dta
      
- ### *d,s* = "describe, short"
+ - ***d,s* = "describe, short"**
 te dá o numero de var e obs
 
- ### *generate*
+ - **generate**
   
 *generate [varnova] = [varvelha] > 10* (valor q vc quiser)
 
@@ -183,7 +183,7 @@ ex: *generate bxpeso1 = apesorn < 2500*
 
 *generate bxpeso2 =.* <br> ** aqui gera uma variavel apenas, com todos os valores missing
 
-### recode
+- **recode**
 recode bxpeso2 (. = 0) if apesorn >= 2500 
 recode bxpeso2 (. = 1) if apesorn < 2500
 
@@ -192,7 +192,7 @@ recode apesorn min / 2499.999 = 1 2500 / max = 0, generate(bxpeso3)
 - A questão aqui: apenas a terceira maneira (recode + parametros) encara os missing da variavel original como missing, os outros 2 primeiros classificam o missing como 0.
 
   
-### egen
+- **egen**
   
 *egen renda_nova1 = rowtotal(arenda1 arenda2 arenda3 arenda4)*
 - desse jeito mesmo que todas as variaveis somadas sejam missing, o egen devolve um 0
@@ -201,15 +201,15 @@ recode apesorn min / 2499.999 = 1 2500 / max = 0, generate(bxpeso3)
 *generate renda_nova = arenda1 + arenda2  + arenda3 + arenda4*
 - assim tendo APENAS 1 variavel das somas missing, a variável gerada terá missing
 
-### proportion/prop
-- dá as proporções em uma variavel categórica
+- **proportion/prop**
+ dá as proporções em uma variavel categórica
 
-### xtile 
-- divide uma variavel em quantis, tu especifica o numero de quantis pelo nq(#)
+- **xtile**
+ divide uma variavel em quantis, tu especifica o numero de quantis pelo nq(#)
 *[varnova] = [varvelha], nq(3)*
 
-### bysort
-- mostra uma variavel por outra
+- **bysort**
+ mostra uma variavel por outra
 
 *bysort regioesdobrasil: sum renda*
 
@@ -217,14 +217,14 @@ recode apesorn min / 2499.999 = 1 2500 / max = 0, generate(bxpeso3)
 
 - posso usar também o *summarize aaltmae if altura_qtis == 1* que vai fazer algo parecido, mas vai me mostrar só a categoria que eu especificar.
 
-### encode
-- transforma uma string tipo "azul" "verde em "1" "2" ou seja, numa numerica com rotulos:
+- **encode**
+ transforma uma string tipo "azul" "verde em "1" "2" ou seja, numa numerica com rotulos:
 
 *encode [nome_da_variavel_string], generate([nova_variavel_numerica])*
 tabulate [variavel], nol (nol esconde os rotulos)
 
-### tab/tabulate
-- faz uma tabelinha; vc pode pedir os percentuais de frequencia assim: (e ainda um chi quadrado)
+- **tab/tabulate**
+ faz uma tabelinha; vc pode pedir os percentuais de frequencia assim: (e ainda um chi quadrado)
 
 *tabulate idadecat bxpeso2, col row chi*
 
@@ -240,15 +240,15 @@ tabulate [variavel], nol (nol esconde os rotulos)
 *tab dpoc2020, nol => esconde os labels das variaveis
 
 
-### *replace* 
-- substitui obs da variável
-- "replace variavelquerecebe = variavelfonte if variavelquerecebe == for x valor"
+- **replace**
+ substitui obs da variável
+ "replace variavelquerecebe = variavelfonte if variavelquerecebe == for x valor"
 exemplo:
 replace status = "aprovado" if nota >= 7
 replace edad = edad1 if edad == . => substitua edad por edad1 se edad for igual a .
 
-### *destring* - variável string vira numérica (uma simples troca de categoria, que só funciona se as obs. já forem numericas)
-### *tostring* - variavel numerica vira string
+- **destring** - variável string vira numérica (uma simples troca de categoria, que só funciona se as obs. já forem numericas)
+- **tostring** - variavel numerica vira string
 
 ### Do file
 
@@ -337,25 +337,25 @@ Comandos da aula:
 - merge
 - append
   
-### Stata 
+#### Stata 
   1. abrir o log em formato .log
   2. abrir o banco de dados .dta
   3. abrir o Do file
      
-### append
-- juntar linhas (observações) ao banco de dados que está sendo utilizado (estudos transversais)
-- *db append*
-- pode acontecer de colunas nao se juntarem, então tu vai precisar usar o replace
+- **append**
+ juntar linhas (observações) ao banco de dados que está sendo utilizado (estudos transversais)
+ *db append*
+ pode acontecer de colunas nao se juntarem, então tu vai precisar usar o replace
 
 
-### merge
+- **merge**
 juntar colunas ao banco (estudos de coorte)
 banco "master" é o aberto
 banco "using" é o externo que tu quer trazer
 
 pode acontecer de os bancos nao terem o mesmo numero de observações, dai vai dar caô, tu vai precisar examinar cada banco manualmente através dos seguintes comandos:
 
-### duplicates
+- **duplicates**
 
 vc precisa descobrir quem é figurinha repetida! 
 
@@ -372,7 +372,7 @@ aqui lista quantas tem de duplicata e nao duplicata
 logo após vc pode *drop duplicatas*
 
 
-2 modos principais:
+**2 modos principais:**
 - One-to-one => indica que as variáveis são pareadas uma a uma (exemplo: banco dos 15 e 18 anos da coorte 1993)
 - One-to-many => indica que há várias observações no “using” que devem ser pareadas com uma informação da mãe (banco da coorte 1993 aos 22 anos, com o banco de filhos dos membros da coorte) (aqui cria um banco tipo long)
 
@@ -489,12 +489,12 @@ Comandos da aula:
 - long
 - reshape
   
-### Stata 
+#### Stata 
   1. abrir o log em formato .log
   2. abrir o banco de dados .dta
   3. abrir o banco
 
-### mdy() 
+- **mdy()**
 =juntar e criar uma data
 vai contar os dias desde uma data especifica (1/1/1960) a partir das datas dadas
 se tuas datas estão separadas por variaveis de dia, mes e ano, tu consegue juntar usando esse comando.
@@ -504,10 +504,10 @@ então exemplo:
 *generate data_inicial = mdy(mes1, dia1, ano1)*	
 **o ano tem que ter 4 digitos
 
-### *format data_inicial %d*
+- **format data_inicial %d**
 transforma a variavel criada pelo mdy() de numeros totais de 1960 para uma data legivel
 
-### collapse
+- **collapse**
 vc tem um banco long e quer juntar medidas repetidas sumarizando uma variavel;
 
 exemplo:
@@ -515,7 +515,7 @@ exemplo:
 
 tem outras opções além de mean (median, sum, sd, count)
 
-### reshape
+- **reshape**
 transformar um long para wide
 
 por exemplo: tenho 2 ou mais observações para ano com uma coluna com informações diferentes para o mesmo ano eu posso juntar essas informações;
@@ -523,11 +523,11 @@ o ano collapsa pra uma observação só e se cria 2 colunas para mostrar aqueles
 
 exemplo:
 
-- long para wide -
+**- long para wide -**
   
 *reshape wide estimate, i(year) j(indic) string* ** aqui vc ancora o ano; e as opções contidas em indic vao virar cada uma uma variavel
 
-- wide para long -
+**- wide para long -**
 
  *reshape long estimativa, i(country) j(coverage)*
  
@@ -610,12 +610,12 @@ Comandos novos da aula:
 
 - global\cd
   
-### Stata 
+#### Stata 
   1. abrir o log em formato .log
   2. abrir o banco de dados .dta
 
      
- ### global
+ - **global**
 criar um atalho de texto para uma pasta, apenas isso, ao inves de digitar todo o caminho para uma pasta toda vez que for usar ela
 
 *global base "C:\Users\lauri\Documents\stata"*
@@ -623,7 +623,7 @@ criar um atalho de texto para uma pasta, apenas isso, ao inves de digitar todo o
 pode criar quantos vc quiser, com o nome que quiser (no lugar de *base*)
 daí na hora abrir algo poderia fazer assim *use "$base\nomedoarquivo.dta"*
 
-### cd
+- **cd**
 trocar o diretorio central; é a melhor ideia quando se vai ficar na mesma pasta só
 
 *cd "o caminho"*
@@ -632,12 +632,12 @@ trocar o diretorio central; é a melhor ideia quando se vai ficar na mesma pasta
 
 após é só *use nome do arquivo"
 
-### encode 
+- **encode**
 transformar de string para numerico, codificando tipo
 *encode sexo, gen(sexo_num)*
 sai de sexo(masculino, feminino) para sexo_num(1,2) com labels mantidos
 
-### recode
+- **recode**
 transformar valores numericos em grupos (construir faixas etárias por exemplo)
 
 ### do file
