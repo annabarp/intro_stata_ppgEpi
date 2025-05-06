@@ -111,9 +111,11 @@ cria uma nova variavel, pode ser a partir de outra
 *foram 2 jeitos diferentes para string -> numerico*
 
 - **tab**
+  
    tabela com frequencias de uma variavel CATEGORICA
 
 - **summarize (ou sum)**
+  
   estatistica descritiva basica de uma variavel numerica
   
  *sum imc, detail*
@@ -162,7 +164,7 @@ log close
 Comandos da aula:
 
 - recode
-- egen
+- 
 - xtile
 - bysort
   
@@ -192,19 +194,20 @@ recode apesorn min / 2499.999 = 1 2500 / max = 0, generate(bxpeso3)
 - A questão aqui: apenas a terceira maneira (recode + parametros) encara os missing da variavel original como missing, os outros 2 primeiros classificam o missing como 0.
 
   
-- **egen**
-  
+- **egen**<br>
 *egen renda_nova1 = rowtotal(arenda1 arenda2 arenda3 arenda4)*
-- desse jeito mesmo que todas as variaveis somadas sejam missing, o egen devolve um 0
+  desse jeito mesmo que todas as variaveis somadas sejam missing, o egen devolve um 0
 
-- diferente no "generate", que com um codigo com a mesma finalidade
+  diferente no "generate", que com um codigo com a mesma finalidade
 *generate renda_nova = arenda1 + arenda2  + arenda3 + arenda4*
-- assim tendo APENAS 1 variavel das somas missing, a variável gerada terá missing
+  assim tendo APENAS 1 variavel das somas missing, a variável gerada terá missing
 
 - **proportion/prop**
+  <br>
  dá as proporções em uma variavel categórica
 
 - **xtile**
+  <br>
  divide uma variavel em quantis, tu especifica o numero de quantis pelo nq(#)
 *[varnova] = [varvelha], nq(3)*
 
