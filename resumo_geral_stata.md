@@ -1,6 +1,6 @@
 ## Abre o log / Abre e salva o do / salva o doc no teu nome
 
-### Explorando o banco
+### Explorando o banco - Aula 1
 
 Comandos da aula:
 
