@@ -1,0 +1,123 @@
+
+dofile:
+
+**descrever o banco
+d,s
+describe
+codebook
+
+**descrever prevalencias com IC
+mean ppn //var numerico
+prop pcormae //var categorica
+
+tab pidmae // tabela simples
+
+**reconfigurando a variavel e atribuindo rotulos
+recode pidmae (13/17=1 "<18 anos") (18/32=2 "18-32 anos") (33/max = 3 ">32 anos"), gen (idademaecat)
+
+**criando uma variavel a partir da subtração de 2 variaveis
+
+gen ganhopeso2 = pfinal - ppini
+
+**cria uma dummy para cada categoria
+tab ahipert, gen(ahipert_) 
+
+**renomear
+rename ahipert_3 pa_sn (varvelha varnova)
+
+** criar uma variavel selecionando apenas 2 das 3 categorias
+recode ahipert (1=1) (2=0) (3=.), gen(tratahas)
+recode adiabet (1/2=1) (3=0), gen(temdm2) 
+
+//baixo peso
+recode apesorn (min/2499 = 1 "Baixo peso") (2500/max=0 "Adequado"), gen(baixopeso)
+label variable baixopeso "Baixo peso (<2500g)"
+
+**atribuir um rotulo a variavel
+label var ganhopeso2 "Ganho de peso na gestacao"
+
+**atribuir rotulos a categorias
+lab define ganho 1 "1 tcl" 2 "2 tcl" 3 "3 tcl"
+lab val ganhopesox ganho
+
+**criar tercis
+xtile ganhopesox = ganhopeso2, nq(3)
+
+**criar IMC (**kg/metros)
+ 
+ generate imc2 = ppini / (altmae) ^ 2
+
+ **trocar a escala de metros para centimetros
+gen altmae = paltmae/100
+ 
+ **categorizar imc na classificação OMS
+ 
+recode imc2 (min/18.4999=1 "Baixo peso") (18.5/24.999=2 "Eutrofico") (25/29.9999 = 3 "Sobrepeso") (30/34.9999 = 4 "Obesidade I") (35/39.9999 = 5 "Obesidade II") (40/max = 6 "Obesidade III"), gen (imc2cat)
+ 
+**corrigiruma variavel para ser binaria
+replace ptipopar = 0 if ptipopar == 8
+
+ //testar associação
+
+/*
+
+tab y x, chi col → chi² -> diferença
+nptrend desfecho, by(exposicao) --> chi2 de tendencia linear
+tab y x, exact → fisher
+oneway y x --> ANOVA
+
+regress y x  → β → LINEAR → variacao media
+logistic y x → OR → LOGÍSTICA → chances
+logit y x    → β  → LOGÍSTICA → coeficientes
+poisson y x, irr  → IRR (taxa de incidencia)
+poisson y x, vce(robust) irr → RP → razao de prevalencia
+cs y x  → RR  → COORTE → risco relativo
+cc y x  → OR  → CASO-CONTROLE → chances
+
+caso a exposição seja categorica ->> i.x
+*/
+/*
+
+**testes de hipoteses (há diferença entre grupos?)
+continuo
+bysort idadematerna: summarize ppn
+oneway ppn idadematerna,means
+
+categorico
+ta idadematerna tipoparto,chi row
+
+
+//se eu fosse rodar uma regressao para cada:
+desfecho continuo
+reg ppn pidmae
+//Cada ano adicional materno está associado a um aumento médio de 11 gramas (IC95%: 7,74-14,30) no peso ao nascer
+reg ppn pfumomae
+reg ppnpescmae
+
+desfecho dicotomico
+logistic ptipopar pidmae
+ //cada ano adicional materno está associado a 4,2 % menos chance de ocorrer parto vaginal (ou a uma odds 4,2% menor)
+poisson ptipopar pidmae, vce(robust) irr
+ // cada ano adicional materno está associado a uma redução de 1.1% na prevalencia de parto vaginal
+
+
+##tabelas e quadros
+
+Quadro 1. Informações das variáveis disponíveis no banco “perinatal.dta” utilizado.
+	Variável		Tipo		Missing		Valores (min-máx.)
+
+Tabela 1. Descrição da amostra a partir do n (%) para variáveis categoricas e pela média e desvio padrão para variáveis contínuas na Coorte de 1982 em Pelotas, RS.
+ 	Variável			N (%)		Média (DP)
+Idade Materna		
+
+
+Tabela 2. Analise bivariada para peso ao nascer e idade materna,fumo na gestação e escolaridade materna.
+	 				Média (desfecho cont)/% de fumo(desfecho cat) 	Valor p	Teste
+Idade materna (anos)			
+
+Tabela 3. Riscos relativos para o desfecho internação nos últimos 10 anos (aos 30 anos), de acordo com renda familiar ao nascer e fumo da mãe. Regressão de Poisson.
+				RR	Valor P
+Renda em SM	2.0	0,001
+
+**metodo de seleção de variavel
+metodo de seleção para tras: O modelo foi montado pela método de seleção para trás: inicialmente analisado o modelo cheio, retirada a variavel de maior valor P, rodado novamente e observado o valor P das variaveis que sobraram e retirar, desse modo, uma a uma, até que nao sobre nenhuma com valor p >0,2.
